@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArogyaLink Pitch</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: transparent;
+            overflow: hidden;
+            color: white;
+            transition: background-color 0.7s ease-in-out;
+        }
+
+        #three-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+        .slide {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100vw;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+            padding: 2rem;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+        .slide.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes popIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .slide.active .animated-title { animation: fadeIn 1s ease-out; }
+        .slide.active .animated-text { animation: fadeIn 1.2s ease-out 0.2s backwards; }
+        .slide.active .animated-card { animation: popIn 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+        .slide.active .animated-card:nth-child(2) { animation-delay: 0.2s; }
+        .slide.active .animated-card:nth-child(3) { animation-delay: 0.4s; }
+
+        .slide-content {
+            background-color: rgba(255, 255, 255, 0.85);
+            padding: 4rem;
+            border-radius: 2rem;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+            max-width: 1200px;
+            margin: auto;
+            position: relative;
+            z-index: 10;
+            backdrop-filter: blur(8px);
+        }
+        .card-container { perspective: 1000px; }
+        .card {
+            background-color: rgba(255, 255, 255, 0.6);
+            transition: transform 0.5s ease;
+            transform: rotateY(0deg);
+        }
+        .card:hover { transform: rotateY(5deg) scale(1.05); }
+
+        .navigation {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 1rem;
+            z-index: 20;
+        }
+        .nav-button {
+            background-color: #1d4ed8;
+            color: white;
+            padding: 0.75rem 2.5rem;
+            border-radius: 9999px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            font-family: 'Poppins', sans-serif;
+        }
+        .nav-button:hover:not(:disabled) { transform: translateY(-3px); }
+        .nav-button:disabled { background-color: #9ca3af; cursor: not-allowed; }
+    </style>
+</head>
+<body>
+
+<div id="three-bg"></div>
+
+<div class="h-screen w-screen relative overflow-hidden">
+
+    <div id="slide1" class="slide active">
+        <div class="slide-content p-16 text-center text-gray-900 bg-white shadow-xl">
+            <h1 class="text-7xl md:text-9xl font-bold mb-4 animated-title">ArogyaLink</h1>
+            <p class="text-2xl md:text-4xl text-gray-700 font-semibold animated-text">Healthcare Beyond Connectivity</p>
+        </div>
+    </div>
+
+    <div id="slide2" class="slide">
+        <div class="slide-content text-gray-900 bg-white shadow-xl">
+            <h2 class="text-4xl md:text-5xl font-bold mb-6 animated-title">The Problem</h2>
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="text-xl md:text-2xl text-gray-700 leading-relaxed mb-6 animated-text">
+                    <p>Imagine this: you're in a beautiful, remote village, and your child just had a fall.</p>
+                    <p class="my-6">The nearest doctor is hours away, and your phone has no network. You're completely cut off, not even knowing if the situation is serious.</p>
+                    <p class="font-bold">This is the reality for millions in underserved communities. A lack of connectivity means a lack of care.</p>
+                </div>
+                <div class="animated-text animated-card">
+                    <svg width="100%" height="auto" viewBox="0 0 500 400" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M480 380 Q 400 350, 300 360 T 150 380 Q 80 400, 20 380" fill="#4CAF50" fill-opacity="0.3" stroke="#4CAF50" stroke-width="5" stroke-linecap="round"/>
+                        <circle cx="250" cy="180" r="50" fill="#FFC107" stroke="#FF9800" stroke-width="5" class="animate-pulse" />
+                        <path d="M220 200 C 200 230, 300 230, 280 200" fill="#FF9800" />
+                        <path d="M250 130 V 230" stroke="#FF9800" stroke-width="5" stroke-linecap="round" />
+                        <path d="M180 160 H 320" stroke="#FF9800" stroke-width="5" stroke-linecap="round" />
+                        <path d="M120 180 Q 150 150, 180 180 M380 180 Q 350 150, 320 180" stroke="#FF9800" stroke-width="5" stroke-linecap="round" />
+                        <rect x="230" y="250" width="40" height="120" rx="10" ry="10" fill="#2196F3" stroke="#1976D2" stroke-width="5" />
+                        <path d="M240 260 H 260 M240 270 H 260 M240 280 H 260 M240 290 H 260" stroke="#1976D2" stroke-width="2" />
+                        <path d="M250 250 A 20 20 0 1 0 250 270" stroke="#F44336" stroke-width="5" fill="none" class="animate-pulse" />
+                        <text x="250" y="275" text-anchor="middle" font-size="20" fill="#F44336" font-weight="bold">No Signal</text>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="slide3" class="slide">
+        <div class="slide-content card-container text-gray-900 bg-white shadow-xl">
+            <h2 class="text-4xl md:text-5xl font-bold mb-8 animated-title">The Tech Behind the Touch</h2>
+            <div class="grid md:grid-cols-3 gap-12">
+                <div class="card flex flex-col items-center p-8 rounded-xl shadow-lg bg-gray-50 animated-card" data-tech="ai">
+                    <svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" class="w-24 h-24 text-red-500 mb-4">
+                        <path d="M 50 10 L 10 90 L 90 90 Z" fill="#FFC107" stroke="#FF9800" stroke-width="3" />
+                        <circle cx="50" cy="50" r="25" fill="#E53935" />
+                        <circle cx="50" cy="50" r="10" fill="#FFEB3B" />
+                        <path d="M50 25 V 50 H 75" stroke="#FFEB3B" stroke-width="5" stroke-linecap="round" />
+                        <path d="M50 25 V 50 H 75" stroke="#FFEB3B" stroke-width="5" stroke-linecap="round" />
+                    </svg>
+                    <h3 class="font-bold text-2xl text-gray-800 mb-2">Offline AI</h3>
+                    <p class="text-gray-600 text-base leading-relaxed">Our backbone is a fine-tuned, lightweight LLM on the user's phone. It provides instant, preliminary medical guidance and answers questions with zero connectivity. This is the first level of care, always private and available.</p>
+                </div>
+                <div class="card flex flex-col items-center p-8 rounded-xl shadow-lg bg-gray-50 animated-card" data-tech="bluetooth">
+                    <svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" class="w-24 h-24 text-blue-500 mb-4">
+                        <circle cx="50" cy="50" r="40" fill="#2196F3" />
+                        <path d="M50 15 L 50 85 M15 50 L 85 50 M15 15 L 85 85" stroke="white" stroke-width="5" stroke-linecap="round" />
+                        <path d="M50 15 L 85 50 M50 85 L 15 50 M15 15 L 85 85" stroke="#90CAF9" stroke-width="3" />
+                        <circle cx="50" cy="50" r="10" fill="white" />
+                    </svg>
+                    <h3 class="font-bold text-2xl text-gray-800 mb-2">Bluetooth Mesh</h3>
+                    <p class="text-gray-600 text-base leading-relaxed">Our app uses Bluetooth to create a local peer-to-peer network with a nearby health worker. This allows for seamless transfer of vital data, like AI consultation notes, without needing a cellular signal.</p>
+                </div>
+                <div class="card flex flex-col items-center p-8 rounded-xl shadow-lg bg-gray-50 animated-card" data-tech="blockchain">
+                    <svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" class="w-24 h-24 text-purple-600 mb-4">
+                        <rect x="10" y="10" width="80" height="20" fill="#9C27B0" />
+                        <rect x="10" y="40" width="80" height="20" fill="#CE93D8" />
+                        <rect x="10" y="70" width="80" height="20" fill="#9C27B0" />
+                        <path d="M50 30 V 40 M50 60 V 70" stroke="#311B92" stroke-width="5" />
+                    </svg>
+                    <h3 class="font-bold text-2xl text-gray-800 mb-2">Blockchain Records</h3>
+                    <p class="text-gray-600 text-base leading-relaxed">We use blockchain to store a cryptographic hash of a patient's data. This creates an immutable, tamper-proof record that can be securely accessed by a doctor in any hospital using a unique patient hash.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="slide4" class="slide">
+        <div class="slide-content card-container text-gray-900 bg-white shadow-xl">
+            <h2 class="text-4xl md:text-5xl font-bold mb-8 animated-title">Why It's Different</h2>
+            <div class="grid md:grid-cols-3 gap-12">
+                <div class="card flex flex-col items-center p-8 rounded-xl shadow-lg bg-gray-50 animated-card">
+                    <svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" class="w-24 h-24 text-green-500 mb-4">
+                        <circle cx="50" cy="50" r="40" fill="#C8E6C9" />
+                        <path d="M50 10 C 20 40, 80 40, 50 10" fill="#4CAF50" />
+                        <path d="M50 90 C 20 60, 80 60, 50 90" fill="#4CAF50" />
+                        <line x1="10" y1="50" x2="90" y2="50" stroke="#4CAF50" stroke-width="5" stroke-linecap="round" />
+                    </svg>
+                    <h3 class="font-bold text-2xl text-gray-800 mb-2">Seamless Hybrid Model</h3>
+                    <p class="text-gray-600 text-base leading-relaxed">Unlike platforms that are strictly online, ArogyaLink provides a seamless transition between offline and online services. A user can start an AI consultation offline and continue it with a live doctor when a connection is available.</p>
+                </div>
+                <div class="card flex flex-col items-center p-8 rounded-xl shadow-lg bg-gray-50 animated-card">
+                    <svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" class="w-24 h-24 text-yellow-500 mb-4">
+                        <path d="M50 10 L 10 30 L 10 70 L 50 90 L 90 70 L 90 30 Z" fill="#FFEB3B" />
+                        <path d="M50 50 L 10 30 L 10 70 L 50 90 L 90 70 L 90 30 Z" fill="#FBC02D" />
+                        <path d="M50 10 L 90 30 L 50 50 L 10 30 Z" fill="#FFD54F" />
+                    </svg>
+                    <h3 class="font-bold text-2xl text-gray-800 mb-2">Empowering Workers</h3>
+                    <p class="text-gray-600 text-base leading-relaxed">Our Bluetooth mesh network empowers community health workers by allowing them to sync critical data and provide at-home care, a service impossible with online-only platforms.</p>
+                </div>
+                <div class="card flex flex-col items-center p-8 rounded-xl shadow-lg bg-gray-50 animated-card">
+                    <svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" class="w-24 h-24 text-teal-500 mb-4">
+                        <path d="M50 10 C 20 10, 20 40, 20 50 V 90 H 80 V 50 C 80 40, 80 10, 50 10 Z" fill="#4DB6AC" stroke="#00796B" stroke-width="5" />
+                        <rect x="45" y="60" width="10" height="20" fill="white" />
+                    </svg>
+                    <h3 class="font-bold text-2xl text-gray-800 mb-2">Unprecedented Security</h3>
+                    <p class="text-gray-600 text-base leading-relaxed">The use of blockchain and a unique hash system gives patients full control over their medical history, providing a level of security and access that traditional systems cannot match.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="slide5" class="slide">
+        <div class="slide-content card-container text-gray-900 bg-white shadow-xl">
+            <h2 class="text-4xl md:text-5xl font-bold mb-8 animated-title">Our Business Model</h2>
+            <div class="grid md:grid-cols-3 gap-12">
+                <div class="card flex flex-col items-center p-8 rounded-xl shadow-lg bg-gray-50 animated-card">
+                    <svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" class="w-24 h-24 text-indigo-500 mb-4">
+                        <path d="M50 10 L 90 50 L 50 90 L 10 50 Z" fill="#7986CB" stroke="#3F51B5" stroke-width="5"/>
+                        <path d="M50 50 L 90 90 M50 50 L 10 90 M50 50 L 90 10 M50 50 L 10 10" stroke="#C5CAE9" stroke-width="5"/>
+                    </svg>
+                    <h3 class="font-bold text-2xl text-gray-800 mb-2">Institutions</h3>
+                    <p class="text-gray-600 text-base leading-relaxed">Tiered subscriptions for hospitals, clinics, and government health departments to use our platform to manage their rural outreach and patient data.</p>
+                </div>
+                <div class="card flex flex-col items-center p-8 rounded-xl shadow-lg bg-gray-50 animated-card">
+                    <svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" class="w-24 h-24 text-indigo-500 mb-4">
+                        <path d="M50 85 Q 35 70, 20 50 Q 5 20, 30 10 A 30 30 0 0 1 70 10 Q 95 20, 80 50 Q 65 70, 50 85 Z" fill="#9FA8DA" stroke="#673AB7" stroke-width="5"/>
+                    </svg>
+                    <h3 class="font-bold text-2xl text-gray-800 mb-2">NGOs</h3>
+                    <p class="text-gray-600 text-base leading-relaxed">We will provide our platform at a subsidized rate to NGOs and charitable trusts, allowing them to expand their reach and help us achieve our social mission.</p>
+                </div>
+                <div class="card flex flex-col items-center p-8 rounded-xl shadow-lg bg-gray-50 animated-card">
+                    <svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" class="w-24 h-24 text-indigo-500 mb-4">
+                        <rect x="15" y="60" width="20" height="30" fill="#3B82F6"/>
+                        <rect x="40" y="40" width="20" height="50" fill="#3B82F6"/>
+                        <rect x="65" y="20" width="20" height="70" fill="#3B82F6"/>
+                        <path d="M10 90 H 90" stroke="#3B82F6" stroke-width="5"/>
+                    </svg>
+                    <h3 class="font-bold text-2xl text-gray-800 mb-2">Data Licensing</h3>
+                    <p class="text-gray-600 text-base leading-relaxed">Anonymized, aggregated public health data from offline consultations will be licensed to research firms and pharmaceutical companies for valuable insights.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="slide6" class="slide">
+        <div class="slide-content p-16 text-center text-gray-900 bg-white shadow-xl">
+            <h2 class="text-5xl md:text-6xl font-bold mb-6 animated-title">Thank You</h2>
+            <p class="text-xl md:text-3xl text-gray-700 font-semibold animated-text">Any Questions?</p>
+        </div>
+    </div>
+
+    <div class="navigation">
+        <button id="prevBtn" class="nav-button" disabled>Previous</button>
+        <button id="nextBtn" class="nav-button">Next</button>
+    </div>
+
+</div>
+
+<script>
+    const slides = document.querySelectorAll('.slide');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const threeBgContainer = document.getElementById('three-bg');
+    let currentSlide = 0;
+
+    // Three.js Scene Setup
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(window.devicePixelRatio);
+    threeBgContainer.appendChild(renderer.domElement);
+
+    // Global scene objects and animation controls
+    let currentBgObject = null;
+    let cameraTargetZ = 15;
+    
+    // Helper function for creating a field of particles
+    function createParticles(color, count, size = 0.2) {
+        const particles = new THREE.BufferGeometry();
+        const positions = [];
+        const particleMaterial = new THREE.PointsMaterial({
+            color: color,
+            size: size,
+            transparent: true,
+            opacity: 0.8,
+            blending: THREE.AdditiveBlending
+        });
+
+        for (let i = 0; i < count; i++) {
+            const x = (Math.random() - 0.5) * 50;
+            const y = (Math.random() - 0.5) * 50;
+            const z = (Math.random() - 0.5) * 50;
+            positions.push(x, y, z);
+        }
+
+        particles.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+        return new THREE.Points(particles, particleMaterial);
+    }
+    
+    // --- Scene Builders for each slide ---
+    function createCoverScene() {
+        const group = new THREE.Group();
+        
+        const nodes = [];
+        const numNodes = 100;
+        const nodeMaterial = new THREE.MeshBasicMaterial({ color: 0x00ff00, transparent: true, opacity: 0.8 });
+        const lineMaterial = new THREE.LineBasicMaterial({ color: 0x00ff00, transparent: true, opacity: 0.3 });
+
+        for (let i = 0; i < numNodes; i++) {
+            const node = new THREE.Mesh(new THREE.SphereGeometry(0.2, 16, 16), nodeMaterial);
+            node.position.set(
+                (Math.random() - 0.5) * 40,
+                (Math.random() - 0.5) * 40,
+                (Math.random() - 0.5) * 40
+            );
+            nodes.push(node);
+            group.add(node);
+        }
+
+        for (let i = 0; i < nodes.length; i++) {
+            for (let j = i + 1; j < nodes.length; j++) {
+                if (nodes[i].position.distanceTo(nodes[j].position) < 8) {
+                    const line = new THREE.Line(new THREE.BufferGeometry().setFromPoints([nodes[i].position, nodes[j].position]), lineMaterial);
+                    group.add(line);
+                }
+            }
+        }
+        
+        const centralCore = new THREE.Mesh(new THREE.SphereGeometry(1.5, 32, 32), new THREE.MeshBasicMaterial({ color: 0x00ff00, transparent: true, opacity: 0.2 }));
+        centralCore.name = 'centralCore';
+        group.add(centralCore);
+
+        group.name = "coverScene";
+        return group;
+    }
+
+    function createProblemScene() {
+        const group = new THREE.Group();
+        
+        const terrainGeometry = new THREE.PlaneGeometry(250, 250, 64, 64);
+        const positions = terrainGeometry.attributes.position.array;
+        for (let i = 0; i < positions.length; i += 3) {
+            positions[i + 2] = (Math.sin(positions[i] * 0.1) + Math.cos(positions[i + 1] * 0.1)) * 12;
+        }
+        terrainGeometry.computeVertexNormals();
+        const terrainMaterial = new THREE.MeshBasicMaterial({ color: 0x336633, wireframe: true, transparent: true, opacity: 0.8 });
+        const terrain = new THREE.Mesh(terrainGeometry, terrainMaterial);
+        terrain.rotation.x = -Math.PI / 2;
+        terrain.position.y = -25;
+        group.add(terrain);
+
+        const treeGeometry = new THREE.ConeGeometry(5, 20, 8);
+        const treeMaterial = new THREE.MeshBasicMaterial({ color: 0x008000, transparent: true, opacity: 0.8 });
+
+        const flowerGeometry = new THREE.SphereGeometry(2.5, 8, 8);
+        const flowerMaterial = new THREE.MeshBasicMaterial({ color: 0xff4500, transparent: true, opacity: 0.8 });
+
+        const objects = [];
+        for(let i = 0; i < 250; i++) {
+            const tree = new THREE.Mesh(treeGeometry, treeMaterial);
+            tree.position.set((Math.random() - 0.5) * 200, -23, (Math.random() - 0.5) * 200);
+            objects.push(tree);
+            group.add(tree);
+
+            const flower = new THREE.Mesh(flowerGeometry, flowerMaterial);
+            flower.position.set((Math.random() - 0.5) * 200, -24, (Math.random() - 0.5) * 200);
+            objects.push(flower);
+            group.add(flower);
+        }
+        group.userData.objects = objects;
+
+        group.name = "problemScene";
+        return group;
+    }
+
+    function createTechScene() {
+        const group = new THREE.Group();
+        
+        const centralGlobe = new THREE.Mesh(new THREE.SphereGeometry(30, 64, 64), new THREE.MeshBasicMaterial({ color: 0x4a5568, transparent: true, opacity: 0.2 }));
+        centralGlobe.name = 'centralGlobe';
+        group.add(centralGlobe);
+
+        const aiNetwork = new THREE.Group();
+        const aiNodes = [];
+        const aiNodeMaterial = new THREE.MeshBasicMaterial({ color: 0x00ff00, transparent: true, opacity: 0.8 });
+        const aiLineMaterial = new THREE.LineBasicMaterial({ color: 0x00cc66, transparent: true, opacity: 0.5 });
+        for(let i = 0; i < 150; i++) {
+            const node = new THREE.Mesh(new THREE.SphereGeometry(0.5, 16, 16), aiNodeMaterial);
+            node.position.set(Math.random() * 50 - 25, Math.random() * 50 - 25, Math.random() * 50 - 25);
+            aiNodes.push(node);
+            aiNetwork.add(node);
+        }
+        for(let i = 0; i < aiNodes.length; i++) {
+            for(let j = i + 1; j < aiNodes.length; j++) {
+                if(aiNodes[i].position.distanceTo(aiNodes[j].position) < 10) {
+                    const line = new THREE.Line(new THREE.BufferGeometry().setFromPoints([aiNodes[i].position, aiNodes[j].position]), aiLineMaterial);
+                    aiNetwork.add(line);
+                }
+            }
+        }
+        aiNetwork.name = 'aiNetwork';
+        group.add(aiNetwork);
+
+        const blockchainBlocks = new THREE.Group();
+        const blockMaterial = new THREE.MeshBasicMaterial({ color: 0x9f7aea, transparent: true, opacity: 0.8 });
+        const chainMaterial = new THREE.LineBasicMaterial({ color: 0xb794f4, transparent: true, opacity: 0.7 });
+        for (let i = 0; i < 8; i++) {
+            const block = new THREE.Mesh(new THREE.BoxGeometry(3, 1.5, 1.5), blockMaterial);
+            const angle = (i / 8) * Math.PI * 2;
+            block.position.x = Math.cos(angle) * 35;
+            block.position.z = Math.sin(angle) * 35;
+            block.rotation.y = -angle;
+            blockchainBlocks.add(block);
+        }
+        blockchainBlocks.name = 'blockchainBlocks';
+        group.add(blockchainBlocks);
+
+        group.name = "techScene";
+        return group;
+    }
+    function createBrokenGridScene() {
+    const group = new THREE.Group();
+    const material = new THREE.MeshBasicMaterial({ color: 0xff4444, wireframe: true, transparent: true, opacity: 0.7 });
+    const lineMaterial = new THREE.LineBasicMaterial({ color: 0xff4444, transparent: true, opacity: 0.5 });
+    const numCubes = 150;
+    for (let i = 0; i < numCubes; i++) {
+        const geometry = new THREE.BoxGeometry(0.6, 0.6, 0.6);
+        const cube = new THREE.Mesh(geometry, material);
+        cube.position.set(
+            (Math.random() - 0.5) * 50,
+            (Math.random() - 0.5) * 50,
+            (Math.random() - 0.5) * 50
+        );
+        cube.velocity = new THREE.Vector3(
+            (Math.random() - 0.5) * 0.1,
+            (Math.random() - 0.5) * 0.1,
+            (Math.random() - 0.5) * 0.1
+        );
+        group.add(cube);
+    }
+    for (let i = 0; i < 100; i++) {
+        const start = new THREE.Vector3(
+            (Math.random() - 0.5) * 50,
+            (Math.random() - 0.5) * 50,
+            (Math.random() - 0.5) * 50
+        );
+        const end = new THREE.Vector3(
+            (Math.random() - 0.5) * 50,
+            (Math.random() - 0.5) * 50,
+            (Math.random() - 0.5) * 50
+        );
+        const geometry = new THREE.BufferGeometry().setFromPoints([start, end]);
+        const line = new THREE.Line(geometry, lineMaterial);
+        group.add(line);
+    }
+    group.name = "brokenGrid";
+    return group;
+}
+
+    function createDifferenceScene() {
+        const group = new THREE.Group();
+        const hubRadius = 25;
+        const centralHub = new THREE.Mesh(new THREE.SphereGeometry(hubRadius, 64, 64), new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.2 }));
+        centralHub.name = 'centralHub';
+        group.add(centralHub);
+        
+        const offlineParticles = new THREE.Group();
+        const offlineMaterial = new THREE.PointsMaterial({ color: 0x00ff00, size: 2.5, transparent: true, opacity: 0.8 });
+        for(let i = 0; i < 3000; i++) {
+            const particle = new THREE.Mesh(new THREE.SphereGeometry(1), offlineMaterial);
+            particle.position.set(-200 + Math.random() * 100, (Math.random() - 0.5) * 150, (Math.random() - 0.5) * 150);
+            offlineParticles.add(particle);
+        }
+        offlineParticles.name = 'offlineParticles';
+        group.add(offlineParticles);
+
+        const onlineParticles = new THREE.Group();
+        const onlineMaterial = new THREE.PointsMaterial({ color: 0x00aaff, size: 2.5, transparent: true, opacity: 0.8 });
+        for(let i = 0; i < 3000; i++) {
+            const particle = new THREE.Mesh(new THREE.SphereGeometry(1), onlineMaterial);
+            particle.position.set(200 + Math.random() * 100, (Math.random() - 0.5) * 150, (Math.random() - 0.5) * 150);
+            particle.userData.velocity = new THREE.Vector3().randomDirection().multiplyScalar(1.5);
+            onlineParticles.add(particle);
+        }
+        onlineParticles.name = 'onlineParticles';
+        group.add(onlineParticles);
+
+        const unifiedParticles = new THREE.Group();
+        const unifiedMaterial = new THREE.PointsMaterial({ color: 0x00ffff, size: 2.5, transparent: true, opacity: 0.8 });
+        for(let i = 0; i < 6000; i++) {
+            const particle = new THREE.Mesh(new THREE.SphereGeometry(1), unifiedMaterial);
+            particle.position.set(0,0,0);
+            unifiedParticles.add(particle);
+        }
+        unifiedParticles.name = 'unifiedParticles';
+        unifiedParticles.visible = false;
+        group.add(unifiedParticles);
+
+        group.name = "differenceScene";
+        return group;
+    }
+
+    function createBusinessScene() {
+        const group = new THREE.Group();
+        
+        const core = new THREE.Mesh(new THREE.SphereGeometry(10, 16, 16), new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.5 }));
+        core.name = 'core';
+        group.add(core);
+
+        const targetGeo = new THREE.IcosahedronGeometry(40, 1);
+        const institutionTarget = new THREE.Mesh(targetGeo, new THREE.MeshBasicMaterial({ color: 0x3182ce, wireframe: true, transparent: true, opacity: 0.5 }));
+        institutionTarget.position.set(120, -50, -120);
+        institutionTarget.name = 'institutionTarget';
+        group.add(institutionTarget);
+
+        const ngoTarget = new THREE.Mesh(targetGeo, new THREE.MeshBasicMaterial({ color: 0x9f7aea, wireframe: true, transparent: true, opacity: 0.5 }));
+        ngoTarget.position.set(-120, -50, -120);
+        ngoTarget.name = 'ngoTarget';
+        group.add(ngoTarget);
+
+        const dataTarget = new THREE.Mesh(targetGeo, new THREE.MeshBasicMaterial({ color: 0xf6ad55, wireframe: true, transparent: true, opacity: 0.5 }));
+        dataTarget.position.set(0, 100, -120);
+        dataTarget.name = 'dataTarget';
+        group.add(dataTarget);
+
+        group.name = 'businessScene';
+        return group;
+    }
+
+    function createThankYouScene() {
+        const group = new THREE.Group();
+        const particles = createParticles(0xffffff, 500);
+        group.add(particles);
+
+        const genericShape = new THREE.TorusKnotGeometry(10, 3, 100, 16);
+        const genericMaterial = new THREE.MeshBasicMaterial({ color: 0x6666ff, wireframe: true });
+        const genericMesh = new THREE.Mesh(genericShape, genericMaterial);
+        group.add(genericMesh);
+
+        group.name = "thankYouScene";
+        return group;
+    }
+
+    // --- Animation Loop ---
+    function animate() {
+        requestAnimationFrame(animate);
+        
+        if (currentBgObject) {
+            currentBgObject.rotation.y += 0.001;
+        }
+
+        if (currentBgObject && currentBgObject.name === "coverScene") {
+            const core = currentBgObject.getObjectByName('centralCore');
+            if (core) {
+                core.scale.setScalar(1 + Math.sin(Date.now() * 0.002) * 0.2);
+            }
+        }
+        
+        if (currentBgObject && currentBgObject.name === "problemScene") {
+            const objects = currentBgObject.userData.objects;
+            const progress = (currentSlide - 1);
+            if(objects && progress > 0) {
+                objects.forEach(obj => {
+                    obj.position.x += (Math.random() - 0.5) * 0.1 * progress;
+                    obj.position.y += (Math.random() - 0.5) * 0.1 * progress;
+                    obj.position.z += (Math.random() - 0.5) * 0.1 * progress;
+                    obj.material.opacity = 0.8 * (1 - progress);
+                });
+            }
+        }
+
+        if (currentBgObject && currentBgObject.name === "techScene") {
+            const globe = currentBgObject.getObjectByName('centralGlobe');
+            if(globe) globe.rotation.y += 0.002;
+            
+            const aiNetwork = currentBgObject.getObjectByName('aiNetwork');
+            if(aiNetwork) aiNetwork.rotation.y += 0.005;
+
+            const blockchainBlocks = currentBgObject.getObjectByName('blockchainBlocks');
+            if(blockchainBlocks) blockchainBlocks.rotation.y -= 0.003;
+        }
+
+        if (currentBgObject && currentBgObject.name === 'differenceScene') {
+            const hub = currentBgObject.getObjectByName('centralHub');
+            const offlineParticles = currentBgObject.getObjectByName('offlineParticles');
+            const onlineParticles = currentBgObject.getObjectByName('onlineParticles');
+            const unifiedParticles = currentBgObject.getObjectByName('unifiedParticles');
+            
+            if (hub) hub.rotation.y += 0.01;
+
+            if (offlineParticles) {
+                offlineParticles.children.forEach(particle => {
+                    if (particle.position.distanceTo(hub.position) > 10) {
+                         particle.position.lerp(hub.position, 0.05);
+                    } else if (particle.position.distanceTo(hub.position) < 5) {
+                         particle.material.opacity = 0;
+                    }
+                });
+            }
+
+            if (onlineParticles) {
+                onlineParticles.children.forEach(particle => {
+                    particle.position.add(particle.userData.velocity);
+                    if (particle.position.distanceTo(hub.position) > 200) {
+                         particle.position.copy(hub.position);
+                         particle.userData.velocity = new THREE.Vector3().randomDirection().multiplyScalar(1.5);
+                    }
+                });
+            }
+            if (currentBgObject && currentBgObject.name === "brokenGrid") {
+    currentBgObject.children.forEach(obj => {
+        if (obj.isMesh) {
+            obj.rotation.x += obj.velocity.x;
+            obj.rotation.y += obj.velocity.y;
+            obj.rotation.z += obj.velocity.z;
+        }
+    });
+}
+
+
+            if (unifiedParticles.visible) {
+                unifiedParticles.children.forEach(particle => {
+                    particle.position.add(particle.userData.velocity);
+                    if (particle.position.distanceTo(hub.position) > 200) {
+                        particle.position.copy(hub.position);
+                        particle.userData.velocity = new THREE.Vector3().randomDirection().multiplyScalar(2.0);
+                    }
+                });
+            } else if (offlineParticles.children.every(p => p.position.distanceTo(hub.position) < 5) && onlineParticles.children.every(p => p.position.distanceTo(hub.position) < 5)) {
+                 unifiedParticles.visible = true;
+            }
+        }
+
+        if (currentBgObject && currentBgObject.name === 'businessScene') {
+            const core = currentBgObject.getObjectByName('core');
+            const institutionTarget = currentBgObject.getObjectByName('institutionTarget');
+            const ngoTarget = currentBgObject.getObjectByName('ngoTarget');
+            const dataTarget = currentBgObject.getObjectByName('dataTarget');
+            
+            if (core) core.scale.setScalar(1.2 + Math.sin(Date.now() * 0.002) * 0.2);
+            if (institutionTarget) institutionTarget.rotation.z += 0.001;
+            if (ngoTarget) ngoTarget.rotation.x += 0.001;
+            if (dataTarget) dataTarget.rotation.y += 0.001;
+        }
+        
+        if (currentBgObject && currentBgObject.name === 'thankYouScene') {
+            const shape = currentBgObject.children[1];
+            if (shape) shape.rotation.y += 0.002;
+        }
+
+        camera.position.z += (cameraTargetZ - camera.position.z) * 0.05;
+        renderer.render(scene, camera);
+    }
+
+    function clearScene() {
+        while(scene.children.length > 0){ 
+            const object = scene.children[0];
+            scene.remove(object);
+            if (object.geometry) object.geometry.dispose();
+            if (object.material) object.material.dispose();
+        }
+    }
+
+    function setScene(index) {
+    clearScene();
+    threeBgContainer.style.opacity = '1';
+
+    switch(index) {
+        case 0:
+            currentBgObject = createCoverScene();
+            scene.add(currentBgObject);
+            cameraTargetZ = 20;
+            renderer.setClearColor(0x0a0a0a, 1);
+            break;
+        case 1:
+            currentBgObject = createProblemScene();
+            scene.add(currentBgObject);
+            cameraTargetZ = 30;
+            renderer.setClearColor(0x1a202c, 1);
+            break;
+        case 2:
+            currentBgObject = createTechScene();
+            scene.add(currentBgObject);
+            cameraTargetZ = 30;
+            renderer.setClearColor(0x1a202c, 1);
+            break;
+        case 4:
+            currentBgObject = createBusinessScene();
+            scene.add(currentBgObject);
+            cameraTargetZ = 40;
+            renderer.setClearColor(0x1e40af, 1);
+            break;
+        case 3:
+            currentBgObject = createBrokenGridScene(); // <-- Use broken grid for slide 4
+            scene.add(currentBgObject);
+            cameraTargetZ = 25;
+            renderer.setClearColor(0x0a0a0a, 1);
+            break;
+        case 5:
+            currentBgObject = createThankYouScene();
+            scene.add(currentBgObject);
+            cameraTargetZ = 35;
+            renderer.setClearColor(0x4a5568, 1);
+            break;
+    }
+}
+
+
+    // --- Slide logic and Navigation ---
+    function showSlide(index) {
+        if (index < 0 || index >= slides.length) return;
+
+        slides.forEach(slide => slide.classList.remove('active'));
+        slides[index].classList.add('active');
+        currentSlide = index;
+
+        prevBtn.disabled = currentSlide === 0;
+        nextBtn.disabled = currentSlide === slides.length - 1;
+        
+        setScene(index);
+    }
+
+    nextBtn.addEventListener('click', () => showSlide(currentSlide + 1));
+    prevBtn.addEventListener('click', () => showSlide(currentSlide - 1));
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'ArrowRight' || event.key === ' ') {
+            showSlide(currentSlide + 1);
+        } else if (event.key === 'ArrowLeft') {
+            showSlide(currentSlide - 1);
+        }
+    });
+
+    window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    window.onload = () => {
+        showSlide(0);
+        animate();
+    };
+</script>
+
+</body>
+</html>
